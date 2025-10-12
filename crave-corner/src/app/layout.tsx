@@ -1,7 +1,7 @@
 // src/app/layout.tsx
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css"; // make sure this path is correct
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartProvider from "../context/CartContext";
@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="/tw-output.css" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-800`}
       >

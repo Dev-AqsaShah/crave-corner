@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Temporary: force Tailwind-like classes until we fix config */
+.text-blue-600 { color: #2563eb !important; }
+.text-4xl { font-size: 2.25rem !important; line-height: 2.5rem !important; }
+
+/* 🎨 Theme Variables */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #e11d48; /* brand rose red */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+/* 🌙 Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* 🔤 Global Styles */
+body {
+  @apply bg-[var(--background)] text-[var(--foreground)] antialiased;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 🧭 Smooth hover animations */
+a,
+button {
+  @apply transition-colors duration-200;
+}
+
+/* ---------------------------------------------------
+   Components layer — place @apply rules here so Tailwind
+   utilities are available when PostCSS resolves them.
+   --------------------------------------------------- */
+@layer components {
+  /* 🌟 Utility: Center container */
+ .container {
+  max-width: 72rem;      /* approx Tailwind max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;    /* px-4 */
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+}
