@@ -11,14 +11,14 @@ export default function Navbar() {
   const cartCount = cart.reduce((s, i) => s + i.qty, 0)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-black shadow-sm sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="font-bold text-xl">
           Crave-Corner
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 items-center">
+        <nav className="hidden md:flex gap-6 items-center ">
           <Link href="/">Home</Link>
           <Link href="/menu">Menu</Link>
           <Link href="/about">About</Link>
