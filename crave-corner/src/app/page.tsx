@@ -106,7 +106,6 @@ export default function Page() {
   return (
     <main className="p-8">
       <h1 className="text-4xl text-blue-700">Tailwind Test — Hello Aqsa</h1>
-      <p className="mt-4 text-lg">Agar yeh blue aur bada dikh raha hai to Tailwind loaded hai.</p>
     </main>
   );
 }

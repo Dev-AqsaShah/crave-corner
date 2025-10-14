@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 
 export default function Navbar() {
@@ -10,61 +11,92 @@ export default function Navbar() {
   const { cart } = useCart()
   const cartCount = cart.reduce((s, i) => s + i.qty, 0)
 
+  const linkVariant = {
+    hidden: { opacity: 0, y: -6 },
+    visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06 } }),
+  }
+
   return (
-    <header className="bg-black shadow-sm sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl">
-          Crave-Corner
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 items-center ">
-          <Link href="/">Home</Link>
-          <Link href="/menu">Menu</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-
-          <Link href="/cart" className="relative">
-            {/* simple cart icon (inline SVG) */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 inline"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 6m12-6l2 6m-8 0a1 1 0 100 2 1 1 0 000-2z" />
-            </svg>
-
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 text-xs bg-red-500 text-white rounded-full px-1">
-                {cartCount}
-              </span>
-            )}
+    <header className="sticky top-0 z-50">
+      {/* Header container with brand color */}
+      <motion.div
+        initial={{ y: -12, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+        className="bg-brand text-white shadow-sm"
+      >
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          {/* Logo / Brand (text-only) */}
+          <Link href="/" className="font-extrabold text-xl tracking-tight">
+            Crave-Corner
           </Link>
-        </nav>
 
-        {/* Mobile hamburger */}
-        <button className="md:hidden" onClick={() => setOpen(v => !v)} aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+          {/* Desktop nav (text-only) */}
+          <nav className="hidden md:flex gap-8 items-center text-sm font-medium">
+            {['Home', 'Menu', 'About', 'Contact'].map((l, idx) => (
+              <motion.div
+                key={l}
+                custom={idx}
+                initial="hidden"
+                animate="visible"
+                variants={linkVariant}
+              >
+                <Link href={l === 'Home' ? '/' : `/${l.toLowerCase()}`}>{l}</Link>
+              </motion.div>
+            ))}
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden bg-white border-t">
-          <div className="px-4 py-4 flex flex-col gap-3">
-            <Link href="/" onClick={() => setOpen(false)}>Home</Link>
-            <Link href="/menu" onClick={() => setOpen(false)}>Menu</Link>
-            <Link href="/about" onClick={() => setOpen(false)}>About</Link>
-            <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
-            <Link href="/cart" onClick={() => setOpen(false)}>Cart ({cartCount})</Link>
-          </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <Link href="/cart" className="relative text-sm">
+                Cart
+                {cartCount > 0 && (
+                  <span className="ml-2 inline-block align-middle text-xs font-semibold bg-white text-brand rounded-full px-2 py-0.5">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </motion.div>
+          </nav>
+
+          {/* Mobile: text-only button */}
+          <button
+            className="md:hidden bg-white/10 px-3 py-1 rounded-md text-sm font-medium hover:bg-white/20"
+            onClick={() => setOpen(v => !v)}
+            aria-label="Toggle menu"
+          >
+            Menu
+          </button>
         </div>
-      )}
+      </motion.div>
+
+      {/* Mobile menu with AnimatePresence */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ type: 'tween', duration: 0.22 }}
+            className="md:hidden bg-white border-t"
+          >
+            <div className="px-4 py-4 flex flex-col gap-3 text-brand">
+              {['Home', 'Menu', 'About', 'Contact'].map((l) => (
+                <Link
+                  key={l}
+                  href={l === 'Home' ? '/' : `/${l.toLowerCase()}`}
+                  onClick={() => setOpen(false)}
+                  className="block text-base font-medium py-2"
+                >
+                  {l}
+                </Link>
+              ))}
+
+              <Link href="/cart" onClick={() => setOpen(false)} className="block text-base font-medium py-2">
+                Cart ({cartCount})
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
