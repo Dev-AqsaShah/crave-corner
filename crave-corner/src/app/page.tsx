@@ -1,111 +1,136 @@
-// import Image from "next/image";
+// src/app/page.tsx
+'use client'
 
-// export default function Home() {
-//   return (
-//     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-//       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-//         <Image
-//           className="dark:invert"
-//           src="/next.svg"
-//           alt="Next.js logo"
-//           width={180}
-//           height={38}
-//           priority
-//         />
-//         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-//           <li className="mb-2 tracking-[-.01em]">
-//             Get started by editing{" "}
-//             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-//               src/app/page.tsx
-//             </code>
-//             .
-//           </li>
-//           <li className="tracking-[-.01em]">
-//             Save and see your changes instantly.
-//           </li>
-//         </ol>
+import Hero from '../components/Hero'
+import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { menuData } from '../data/menuData'
 
-//         <div className="flex gap-4 items-center flex-col sm:flex-row">
-//           <a
-//             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-//             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             <Image
-//               className="dark:invert"
-//               src="/vercel.svg"
-//               alt="Vercel logomark"
-//               width={20}
-//               height={20}
-//             />
-//             Deploy now
-//           </a>
-//           <a
-//             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-//             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Read our docs
-//           </a>
-//         </div>
-//       </main>
-//       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/file.svg"
-//             alt="File icon"
-//             width={16}
-//             height={16}
-//           />
-//           Learn
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/window.svg"
-//             alt="Window icon"
-//             width={16}
-//             height={16}
-//           />
-//           Examples
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/globe.svg"
-//             alt="Globe icon"
-//             width={16}
-//             height={16}
-//           />
-//           Go to nextjs.org →
-//         </a>
-//       </footer>
-//     </div>
-//   );
-// }
+export default function HomePage() {
+  // show top 3 available featured items
+  const featured = menuData.filter(i => i.available).slice(0, 3)
 
-export default function Page() {
+  const container = {
+    hidden: { opacity: 0, y: 8 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.12,
+        when: 'beforeChildren',
+      },
+    },
+  }
+
+  const card = {
+    hidden: { opacity: 0, y: 12, scale: 0.98 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 30 } },
+    hover: { scale: 1.03, translateY: -6, transition: { type: 'spring', stiffness: 300 } },
+  }
+
   return (
-    <main className="p-8">
-      <h1 className="text-4xl text-blue-700">Tailwind Test — Hello Aqsa</h1>
-    </main>
-  );
+    <div className="space-y-8">
+      {/* Hero (already designed) */}
+      <Hero />
+
+      {/* Featured section */}
+      <section className="max-w-5xl mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Chef's Picks</h2>
+            <p className="text-sm text-gray-600 mt-1">Hand-selected favorites — freshly prepared.</p>
+          </div>
+
+          <Link href="/menu" className="hidden sm:inline-block px-4 py-2 bg-rose-600 text-white rounded-md shadow hover:opacity-95">
+            View Full Menu
+          </Link>
+        </div>
+
+        <motion.div
+          className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          {featured.map(item => (
+            <motion.article
+              key={item.id}
+              className="bg-white rounded-lg shadow overflow-hidden flex flex-col"
+              variants={card}
+              whileHover="hover"
+              role="group"
+            >
+              <div className="relative w-full h-44 bg-gray-100">
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                    placeholder="empty"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">No image</div>
+                )}
+              </div>
+
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-semibold text-lg">{item.name}</h3>
+                  <p className="text-xs text-gray-500 mt-1">{item.category}</p>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="text-rose-600 font-bold">₨{item.price}</div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => { /* UX: call addToCart — we keep it simple here; add handler if needed */ }}
+                      className="px-3 py-1 bg-rose-600 text-white rounded-md text-sm shadow-sm opacity-100 group-hover:opacity-100"
+                      aria-label={`Add ${item.name} to cart`}
+                    >
+                      Add
+                    </button>
+
+                    <Link href={`/menu`} className="text-sm text-gray-600 underline">
+                      See more
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+
+        {/* Mobile action CTA */}
+        <div className="mt-6 sm:hidden flex justify-center">
+          <Link href="/menu" className="px-4 py-2 bg-rose-600 text-white rounded-md shadow">
+            Browse Full Menu
+          </Link>
+        </div>
+      </section>
+
+      {/* Small promo / trust bar */}
+      <section className="bg-gradient-to-r from-yellow-50 to-rose-50 py-6">
+        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div>
+            <h4 className="font-semibold">Fast delivery • Fresh ingredients</h4>
+            <p className="text-sm text-gray-600 mt-1">Orders prepared within 30 minutes for most local areas.</p>
+          </div>
+
+          <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3h18v4H3zM5 11h14v10H5z" /></svg>
+              <span>Contactless delivery</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l3 7h7l-5.6 4 2 7L12 16l-6.4 4 2-7L2 9h7z" /></svg>
+              <span>Top-rated recipes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }
