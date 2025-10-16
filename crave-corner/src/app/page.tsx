@@ -4,14 +4,14 @@
 import Hero from '../components/Hero'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { menuData } from '../data/menuData'
 
 export default function HomePage() {
   // show top 3 available featured items
   const featured = menuData.filter(i => i.available).slice(0, 3)
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0, y: 8 },
     show: {
       opacity: 1,
@@ -23,10 +23,19 @@ export default function HomePage() {
     },
   }
 
-  const card = {
+  const card: Variants = {
     hidden: { opacity: 0, y: 12, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 30 } },
-    hover: { scale: 1.03, translateY: -6, transition: { type: 'spring', stiffness: 300 } },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: 'spring', stiffness: 280, damping: 30 },
+    },
+    hover: {
+      scale: 1.03,
+      y: -6, // use `y` instead of translateY
+      transition: { type: 'spring', stiffness: 300 },
+    },
   }
 
   return (
@@ -86,7 +95,7 @@ export default function HomePage() {
                   <div className="text-rose-600 font-bold">₨{item.price}</div>
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => { /* UX: call addToCart — we keep it simple here; add handler if needed */ }}
+                      onClick={() => { /* addToCart handler can be added later */ }}
                       className="px-3 py-1 bg-rose-600 text-white rounded-md text-sm shadow-sm opacity-100 group-hover:opacity-100"
                       aria-label={`Add ${item.name} to cart`}
                     >
