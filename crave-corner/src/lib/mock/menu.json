@@ -1,0 +1,10 @@
+[
+  {"id":"d1","name":"Chicken Biryani","slug":"chicken-biryani","description":"Aromatic rice with tender spiced chicken","price":850,"category":"Main","image":"/images/biryani.jpg","tags":["spicy","chef-special"],"isAvailable":true,"rating":4.6},
+  {"id":"d2","name":"Veg Burger","slug":"veg-burger","description":"Crispy patty with fresh veggies and sauce","price":420,"category":"Fast Food","image":"/images/veg-burger.jpg","tags":["vegetarian"],"isAvailable":true,"rating":4.1},
+  {"id":"d3","name":"Chocolate Cake","slug":"chocolate-cake","description":"Rich layered chocolate cake slice","price":300,"category":"Dessert","image":"/images/choco-cake.jpg","tags":["sweet"],"isAvailable":false,"rating":4.8},
+  {"id":"d4","name":"Lemonade","slug":"lemonade","description":"Freshly squeezed lemon drink","price":120,"category":"Drinks","image":"/images/lemonade.jpg","tags":["cold","refreshing"],"isAvailable":true,"rating":4.0},
+  {"id":"d5","name":"Beef Shawarma","slug":"beef-shawarma","description":"Spiced beef slices in flatbread","price":650,"category":"Fast Food","image":"/images/shawarma.jpg","tags":["spicy"],"isAvailable":true,"rating":4.4},
+  {"id":"d6","name":"Paneer Tikka","slug":"paneer-tikka","description":"Grilled marinated paneer cubes","price":540,"category":"Starters","image":"/images/paneer-tikka.jpg","tags":["vegetarian","grilled"],"isAvailable":true,"rating":4.3},
+  {"id":"d7","name":"French Fries","slug":"french-fries","description":"Crispy salted fries","price":220,"category":"Fast Food","image":"/images/fries.jpg","tags":["snack"],"isAvailable":true,"rating":4.2},
+  {"id":"d8","name":"Margherita Pizza","slug":"margherita-pizza","description":"Tomato, basil and cheese","price":950,"category":"Main","image":"/images/margherita.jpg","tags":["vegetarian","oven-baked"],"isAvailable":true,"rating":4.7}
+]
