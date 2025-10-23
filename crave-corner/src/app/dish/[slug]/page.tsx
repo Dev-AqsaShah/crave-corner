@@ -1,7 +1,7 @@
 // src/app/dish/[slug]/page.tsx
 import React from 'react';
 import { notFound } from 'next/navigation';
-import DishDetailClient from '@/components/dish/DishDetailClient';
+import DishDetailClient from '../../../components/dish/DishDetailClient';
 import MENU from '@/lib/mock/menu.json'; // ensure mock exists
 
 type Params = { params: { slug: string } };
