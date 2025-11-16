@@ -23,7 +23,7 @@ export default function Navbar() {
         initial={{ y: -12, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 120, damping: 14 }}
-        className="bg-brand text-white shadow-sm"
+        className="bg-red-600 text-white shadow-sm"
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo / Brand (text-only) */}
